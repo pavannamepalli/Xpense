@@ -2,4 +2,8 @@
     <string name="app_name">Xpense</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_expenses">All expenses</string>
+    <string name="total_count_fmt">Count: %1$d</string>
+    <string name="total_amount_fmt">Amount: %1$s</string>
+    <string name="today_total_fmt">Today Total: %1$s</string>
 </resources>
