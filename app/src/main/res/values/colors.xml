@@ -1,62 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <!-- Base Colors -->
+    <!-- Base Colors - Used in layouts -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Core Theme Colors - Used in themes and layouts -->
+    <!-- Core Theme Colors - Used in themes -->
     <color name="md_theme_primary">#6366F1</color>           <!-- Indigo 500 -->
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#E0E7FF</color>  <!-- Indigo 100 -->
-    <color name="md_theme_onPrimaryContainer">#1E1B4B</color> <!-- Indigo 900 -->
     <color name="md_theme_secondary">#8B5CF6</color>         <!-- Violet 500 -->
-    <color name="md_theme_onSecondary">#FFFFFF</color>
-    <color name="md_theme_secondaryContainer">#EDE9FE</color> <!-- Violet 100 -->
-    <color name="md_theme_onSecondaryContainer">#2E1065</color> <!-- Violet 900 -->
-    
-    <!-- Surface Colors - Used in themes and drawables -->
     <color name="md_theme_surface">#FFFFFF</color>
-    <color name="md_theme_onSurface">#1F2937</color>         <!-- Gray 800 -->
-    <color name="md_theme_surfaceVariant">#F9FAFB</color>    <!-- Gray 50 -->
-    <color name="md_theme_onSurfaceVariant">#6B7280</color>  <!-- Gray 500 -->
-    
-    <!-- Background Colors - Used in themes -->
-    <color name="md_theme_background">#FFFFFF</color>
-    <color name="md_theme_onBackground">#111827</color>       <!-- Gray 900 -->
-    
-    <!-- Error Colors - Used in themes -->
-    <color name="md_theme_error">#EF4444</color>             <!-- Red 500 -->
-    <color name="md_theme_onError">#FFFFFF</color>
-    <color name="md_theme_errorContainer">#FEE2E2</color>    <!-- Red 100 -->
-    <color name="md_theme_onErrorContainer">#7F1D1D</color>  <!-- Red 900 -->
-    
-    <!-- Outlined Colors - Used in themes and drawables -->
-    <color name="md_theme_outline">#D1D5DB</color>           <!-- Gray 300 -->
-    <color name="md_theme_outlineVariant">#E5E7EB</color>    <!-- Gray 200 -->
     
     <!-- Legacy Color Names - Used in layouts -->
     <color name="color_primary_light">@color/md_theme_primary</color>
-    <color name="color_primary_variant_light">@color/md_theme_secondary</color>
-    <color name="color_on_primary_light">@color/md_theme_onPrimary</color>
     
     <!-- Dark Theme Colors - Used in dark theme -->
     <color name="color_primary_dark">#A78BFA</color>         <!-- Violet 400 -->
-    <color name="color_primary_variant_dark">#8B5CF6</color> <!-- Violet 500 -->
-    <color name="color_on_primary_dark">#1F1F23</color>      <!-- Dark Gray -->
-    
-    <!-- Dark Theme Surface Colors - Used in dark theme -->
-    <color name="md_theme_surface_dark">#1F1F23</color>      <!-- Dark Gray -->
-    <color name="md_theme_onSurface_dark">#E5E7EB</color>    <!-- Light Gray -->
-    <color name="md_theme_surfaceVariant_dark">#2D2D32</color> <!-- Darker Gray -->
-    <color name="md_theme_onSurfaceVariant_dark">#9CA3AF</color> <!-- Gray 400 -->
-    
-    <!-- Dark Theme Background Colors - Used in dark theme -->
-    <color name="md_theme_background_dark">#0F0F0F</color>   <!-- Very Dark Gray -->
     <color name="md_theme_onBackground_dark">#F9FAFB</color>  <!-- Light Gray -->
-    
-    <!-- Dark Theme Outlined Colors - Used in dark theme -->
-    <color name="md_theme_outline_dark">#4B5563</color>      <!-- Gray 600 -->
-    <color name="md_theme_outlineVariant_dark">#374151</color> <!-- Gray 700 -->
+    <color name="md_theme_surface_dark">#1F1F23</color>      <!-- Dark Gray -->
     
 </resources>

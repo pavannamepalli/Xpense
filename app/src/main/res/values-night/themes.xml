@@ -3,32 +3,13 @@
     <!-- Dark Theme -->
     <style name="Theme.Xpense" parent="Theme.Material3.Dark.NoActionBar">
         
-        <!-- Primary Colors -->
+        <!-- Primary Colors - Used in layouts -->
         <item name="colorPrimary">@color/color_primary_dark</item>
         <item name="colorOnPrimary">@color/md_theme_onBackground_dark</item>
-        <item name="colorPrimaryContainer">@color/md_theme_surfaceVariant_dark</item>
-        <item name="colorOnPrimaryContainer">@color/md_theme_onSurface_dark</item>
-
-        <item name="dropdownBackground">@color/color_primary_dark</item>
-
-
-        <!-- Secondary Colors -->
-        <item name="colorSecondary">@color/color_primary_variant_dark</item>
-        <item name="colorOnSecondary">@color/md_theme_onBackground_dark</item>
-        <item name="colorSecondaryContainer">@color/md_theme_surfaceVariant_dark</item>
-        <item name="colorOnSecondaryContainer">@color/md_theme_onSurface_dark</item>
-        
-        <!-- Surface Colors -->
         <item name="colorSurface">@color/md_theme_surface_dark</item>
-        <item name="colorOnSurface">@color/md_theme_onSurface_dark</item>
-        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant_dark</item>
-        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant_dark</item>
         
-        <!-- Error Colors -->
-        <item name="colorError">@color/md_theme_error</item>
-        <item name="colorOnError">@color/md_theme_onError</item>
-        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
-        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
+        <!-- Dropdown Background - Used in layouts -->
+        <item name="dropdownBackground">@color/color_primary_dark</item>
         
         <!-- Status Bar -->
         <item name="android:statusBarColor">@color/md_theme_surface_dark</item>
@@ -38,56 +19,6 @@
         <item name="android:navigationBarColor">@color/md_theme_surface_dark</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
         
-        <!-- Card Style -->
-        <item name="materialCardViewStyle">@style/Widget.Xpense.CardView.Dark</item>
-        
-        <!-- Button Styles -->
-        <item name="materialButtonStyle">@style/Widget.Xpense.Button.Dark</item>
-        <item name="materialButtonOutlinedStyle">@style/Widget.Xpense.Button.Outlined.Dark</item>
-        
-        <!-- Text Input Styles -->
-        <item name="textInputStyle">@style/Widget.Xpense.TextInputLayout.Dark</item>
-        
-    </style>
-    
-    <!-- Custom Card Style - Dark -->
-    <style name="Widget.Xpense.CardView.Dark" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardElevation">8dp</item>
-        <item name="cardCornerRadius">16dp</item>
-        <item name="cardBackgroundColor">@color/md_theme_surface_dark</item>
-    </style>
-    
-    <!-- Custom Button Style - Dark -->
-    <style name="Widget.Xpense.Button.Dark" parent="Widget.Material3.Button">
-        <item name="android:textSize">16sp</item>
-        <item name="android:paddingStart">24dp</item>
-        <item name="android:paddingEnd">24dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="cornerRadius">12dp</item>
-    </style>
-    
-    <!-- Custom Outlined Button Style - Dark -->
-    <style name="Widget.Xpense.Button.Outlined.Dark" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:textSize">16sp</item>
-        <item name="android:paddingStart">24dp</item>
-        <item name="android:paddingEnd">24dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="cornerRadius">12dp</item>
-        <item name="strokeColor">@color/color_primary_dark</item>
-        <item name="strokeWidth">2dp</item>
-    </style>
-    
-    <!-- Custom Text Input Style - Dark -->
-    <style name="Widget.Xpense.TextInputLayout.Dark" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
-        <item name="boxStrokeColor">@color/md_theme_outline_dark</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="hintTextColor">@color/color_primary_dark</item>
     </style>
     
 </resources>
