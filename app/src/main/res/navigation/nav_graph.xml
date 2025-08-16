@@ -6,15 +6,15 @@
     <fragment
         android:id="@+id/entryFragment"
         android:name="com.example.xpense.ui.entry.ExpenseEntryFragment"
-        android:label="Add Expense" />
+         />
 
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.xpense.ui.list.ExpenseListFragment"
-        android:label="Expenses" />
+        />
 
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.xpense.ui.report.ExpenseReportFragment"
-        android:label="Reports" />
+         />
 </navigation>
