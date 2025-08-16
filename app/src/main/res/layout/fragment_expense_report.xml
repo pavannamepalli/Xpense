@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Last 7 Days — Daily Totals"
+            android:text="@string/header_daily_totals"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -37,7 +37,7 @@
 
         <TextView
             android:layout_marginTop="12dp"
-            android:text="Category-wise Totals"
+            android:text="@string/header_category_totals"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -50,7 +50,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnExportCsv"
-            android:text="Export (CSV)"
+            android:text="@string/btn_export_pdf"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

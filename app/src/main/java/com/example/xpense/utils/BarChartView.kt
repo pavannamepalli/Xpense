@@ -7,6 +7,7 @@ import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import com.example.xpense.R
 import com.google.android.material.color.MaterialColors
 import kotlin.math.max
 import androidx.core.graphics.toColorInt
@@ -38,7 +39,7 @@ class BarChartView @JvmOverloads constructor(
         color = MaterialColors.getColor(
             this@BarChartView,
             com.google.android.material.R.attr.colorPrimary,
-            Color.parseColor("#6750A4")
+            Color.parseColor("#6366F1")
         )
     }
     
@@ -103,7 +104,7 @@ class BarChartView @JvmOverloads constructor(
     override fun onDraw(c: Canvas) {
         super.onDraw(c)
         if (data.isEmpty()) {
-            val t = "No data"
+            val t = context.getString(R.string.chart_no_data)
             c.drawText(t, (width - labelPaint.measureText(t)) / 2f, height / 2f, labelPaint)
             return
         }

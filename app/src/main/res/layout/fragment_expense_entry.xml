@@ -24,7 +24,7 @@
                 android:id="@+id/tvTodayTotal"
                 android:padding="16dp"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:text="Today Total: ₹0.00"
+                android:text="@string/today_total_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.card.MaterialCardView>
@@ -47,7 +47,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:hint="Title">
+                    android:hint="@string/hint_title">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputTitle"
                         android:imeOptions="actionNext"
@@ -58,7 +58,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:hint="Amount (₹)"
+                    android:hint="@string/hint_amount"
                     android:layout_marginTop="8dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputAmount"
@@ -70,7 +70,7 @@
 
                 <!-- Exposed dropdown for Category -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:hint="Category"
+                    android:hint="@string/hint_category"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_marginTop="8dp"
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:id="@+id/tilDate"
-                    android:hint="Date"
+                    android:hint="@string/hint_date"
                     android:layout_marginTop="8dp"
                     app:endIconMode="custom"
                     app:endIconDrawable="@android:drawable/ic_menu_my_calendar">
@@ -104,7 +104,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:hint="Notes (optional)"
+                    android:hint="@string/hint_notes"
                     android:layout_marginTop="8dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="100">
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPickImage"
-                        android:text="Add Receipt"
+                        android:text="@string/btn_add_receipt"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -140,7 +140,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSubmit"
-                    android:text="Submit"
+                    android:text="@string/btn_submit"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -169,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="✓ Saved!"
+                android:text="@string/msg_saved"
                 android:textStyle="bold"
                 android:textSize="18sp" />
         </com.google.android.material.card.MaterialCardView>

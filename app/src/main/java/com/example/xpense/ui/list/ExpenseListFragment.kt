@@ -37,7 +37,13 @@ class ExpenseListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val categories = arrayOf("All", "Staff", "Travel", "Food", "Utility")
+        val categories = arrayOf(
+            getString(R.string.category_all),
+            getString(R.string.category_staff),
+            getString(R.string.category_travel),
+            getString(R.string.category_food),
+            getString(R.string.category_utility)
+        )
 
         binding.inputCategoryFilter.setAdapter(
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, categories)
@@ -50,7 +56,7 @@ class ExpenseListFragment : Fragment() {
 
         binding.inputCategoryFilter.setOnItemClickListener { _, _, pos, _ ->
             val sel = categories[pos]
-            vm.setCategoryOrAll(if (sel == "All") null else sel)
+            vm.setCategoryOrAll(if (sel == getString(R.string.category_all)) null else sel)
             // clear focus so the field returns to normal (no purple focus ring)
             binding.inputCategoryFilter.clearFocus()
             binding.root.requestFocus()
@@ -58,7 +64,7 @@ class ExpenseListFragment : Fragment() {
 
         binding.btnPickDate.setOnClickListener {
             val picker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Filter by date")
+                .setTitleText(getString(R.string.date_picker_filter_title))
                 .build()
             picker.addOnPositiveButtonClickListener { millis ->
                 val start = DateUtils.startOfDay(millis)
@@ -67,12 +73,12 @@ class ExpenseListFragment : Fragment() {
                 binding.tvDateFilter.text = DateUtils.formatDate(millis)
                 binding.btnClearDate.visibility = View.VISIBLE
 
-                binding.inputCategoryFilter.setText("All", false)
+                binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
                 vm.setCategoryOrAll(null)
                 binding.inputCategoryFilter.clearFocus()
                 binding.root.requestFocus()
             }
-            picker.show(parentFragmentManager, "filter_date")
+            picker.show(parentFragmentManager, getString(R.string.fragment_tag_filter_date))
         }
         
         binding.btnClearDate.setOnClickListener {
@@ -83,8 +89,10 @@ class ExpenseListFragment : Fragment() {
             binding.tvDateFilter.text = getString(R.string.all_expenses)
             binding.btnClearDate.visibility = View.GONE
 
-            binding.inputCategoryFilter.setText("All", false)
+            binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
             vm.setCategoryOrAll(null)
+            binding.inputCategoryFilter.clearFocus()
+            binding.root.requestFocus()
         }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())

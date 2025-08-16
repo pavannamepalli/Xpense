@@ -1,9 +1,11 @@
 package com.example.xpense.ui.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.xpense.data.local.ExpenseEntity
 import com.example.xpense.databinding.ItemExpenseBinding
 import com.example.xpense.utils.DateUtils
@@ -40,8 +42,25 @@ class ExpenseVH(private val vb: ItemExpenseBinding) : RecyclerView.ViewHolder(vb
         if (item.imageUri.isNullOrBlank()) {
             vb.ivReceipt.visibility = View.GONE
         } else {
-            vb.ivReceipt.visibility = View.VISIBLE
-            vb.ivReceipt.setImageURI(android.net.Uri.parse(item.imageUri))
+            try {
+                val uri = Uri.parse(item.imageUri)
+                vb.ivReceipt.visibility = View.VISIBLE
+                vb.ivReceipt.load(uri) {
+                    crossfade(true)
+                    listener(
+                        onSuccess = { _, _ ->
+                            vb.ivReceipt.visibility = View.VISIBLE
+                        },
+                        onError = { _, _ ->
+                            // If image fails to load, hide the ImageView
+                            vb.ivReceipt.visibility = View.GONE
+                        }
+                    )
+                }
+            } catch (e: Exception) {
+                // If we can't parse the URI or load the image, hide it
+                vb.ivReceipt.visibility = View.GONE
+            }
         }
     }
     

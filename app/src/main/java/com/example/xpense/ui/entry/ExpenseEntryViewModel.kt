@@ -1,12 +1,15 @@
 package com.example.xpense.ui.entry
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.xpense.R
 import com.example.xpense.data.local.ExpenseEntity
 import com.example.xpense.data.repository.ExpenseRepository
 import com.example.xpense.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ExpenseEntryViewModel @Inject constructor(
     private val repo: ExpenseRepository,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     val todayTotal: LiveData<Double?> = repo.getTotalBetween(
@@ -35,12 +39,12 @@ class ExpenseEntryViewModel @Inject constructor(
             val amount = amountStr.toDoubleOrNull() ?: 0.0
             
             if (title.isBlank()) {
-                onResult(false, "Title cannot be empty")
+                onResult(false, context.getString(R.string.msg_title_empty))
                 return@launch
             }
             
             if (amount <= 0.0) {
-                onResult(false, "Amount must be greater than 0")
+                onResult(false, context.getString(R.string.msg_amount_invalid))
                 return@launch
             }
 
@@ -49,7 +53,7 @@ class ExpenseEntryViewModel @Inject constructor(
             val exists = repo.findDuplicate(title.trim(), amount, start, end)
             
             if (exists != null) {
-                onResult(false, "Duplicate expense detected for same day")
+                onResult(false, context.getString(R.string.msg_duplicate_expense))
                 return@launch
             }
 
@@ -64,7 +68,7 @@ class ExpenseEntryViewModel @Inject constructor(
                 )
             )
             
-            onResult(id > 0, if (id > 0) "Saved!" else "Insert failed")
+            onResult(id > 0, if (id > 0) context.getString(R.string.msg_save_success) else context.getString(R.string.msg_insert_failed))
         }
     }
     

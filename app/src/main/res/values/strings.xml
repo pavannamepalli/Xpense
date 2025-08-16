@@ -6,4 +6,98 @@
     <string name="total_count_fmt">Count: %1$d</string>
     <string name="total_amount_fmt">Amount: %1$s</string>
     <string name="today_total_fmt">Today Total: %1$s</string>
+    
+    <!-- Menu items -->
+    <string name="menu_toggle_theme">Toggle Theme</string>
+    <string name="menu_entry">Entry</string>
+    <string name="menu_list">List</string>
+    <string name="menu_report">Report</string>
+    
+    <!-- Form labels and hints -->
+    <string name="hint_title">Title</string>
+    <string name="hint_amount">Amount (₹)</string>
+    <string name="hint_category">Category</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_notes">Notes (optional)</string>
+    <string name="hint_category_filter">Category</string>
+    
+    <!-- Buttons -->
+    <string name="btn_add_receipt">Add Receipt</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_pick_date">Pick Date</string>
+    <string name="btn_clear">Clear</string>
+    <string name="btn_export_csv">Export (CSV)</string>
+    <string name="btn_export_pdf">Export (PDF)</string>
+    
+    <!-- Messages -->
+    <string name="msg_saved">✓ Saved!</string>
+    <string name="msg_no_expenses">No expenses found</string>
+    <string name="msg_title_empty">Title cannot be empty</string>
+    <string name="msg_amount_invalid">Amount must be greater than 0</string>
+    <string name="msg_duplicate_expense">Duplicate expense detected for same day</string>
+    <string name="msg_save_success">Saved!</string>
+    <string name="msg_insert_failed">Insert failed</string>
+    <string name="msg_pdf_opening">Opening PDF report...</string>
+    <string name="msg_pdf_sharing">Opening share dialog...</string>
+    <string name="msg_no_pdf_viewer">No PDF viewer found, sharing directly</string>
+    <string name="msg_permission_required">Permission required to select images</string>
+    <string name="msg_image_load_error">Error loading image: %1$s</string>
+    
+    <!-- Section headers -->
+    <string name="header_daily_totals">Last 7 Days — Daily Totals</string>
+    <string name="header_category_totals">Category-wise Totals</string>
+    
+    <!-- Default values -->
+    <string name="today_total_default">Today Total: ₹0.00</string>
+    <string name="count_default">Count: 0</string>
+    <string name="amount_default">Amount: ₹0.00</string>
+    
+    <!-- Categories -->
+    <string name="category_all">All</string>
+    <string name="category_staff">Staff</string>
+    <string name="category_travel">Travel</string>
+    <string name="category_food">Food</string>
+    <string name="category_utility">Utility</string>
+    
+    <!-- Date picker -->
+    <string name="date_picker_title">Select date</string>
+    <string name="date_picker_filter_title">Filter by date</string>
+    
+    <!-- File operations -->
+    <string name="file_expense_report">expense_report.csv</string>
+    <string name="mime_type_csv">text/csv</string>
+    <string name="share_expense_report">Share expense report</string>
+    
+    <!-- CSV headers -->
+    <string name="csv_header_type">Type</string>
+    <string name="csv_header_key">Key</string>
+    <string name="csv_header_amount">Amount</string>
+    <string name="csv_type_daily">Daily</string>
+    <string name="csv_type_category">Category</string>
+    
+    <!-- Chart labels -->
+    <string name="chart_no_data">No data</string>
+    
+    <!-- Fragment tags -->
+    <string name="fragment_tag_date">date</string>
+    <string name="fragment_tag_filter_date">filter_date</string>
+    
+    <!-- MIME types -->
+    <string name="mime_type_image">image/*</string>
+    <string name="mime_type_pdf">application/pdf</string>
+    
+    <!-- PDF export -->
+    <string name="pdf_title">Expense Report (Last 7 Days)</string>
+    <string name="pdf_daily_totals">Daily Totals</string>
+    <string name="pdf_category_totals">Category-wise Totals</string>
+    <string name="pdf_file_name">expense_report.pdf</string>
+    <string name="share_expense_report_pdf">Share expense report (PDF)</string>
+    <string name="open_pdf">Open PDF</string>
+    
+    <!-- PDF Options Dialog -->
+    <string name="dialog_pdf_options_title">What would you like to do with the PDF?</string>
+    <string name="btn_open_pdf">Open PDF</string>
+    <string name="btn_share_pdf">Share PDF</string>
+    <string name="btn_cancel">Cancel</string>
+    
 </resources>

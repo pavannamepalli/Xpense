@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Category">
+            android:hint="@string/hint_category_filter">
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/inputCategoryFilter"
                 android:layout_width="match_parent"
@@ -38,14 +38,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPickDate"
-            android:text="Pick Date"
+            android:text="@string/btn_pick_date"
             android:layout_marginStart="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnClearDate"
-            android:text="Clear"
+            android:text="@string/btn_clear"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:visibility="gone"
             android:layout_marginStart="4dp"
@@ -68,13 +68,13 @@
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tvTotalCount"
-            android:text="Count: 0"
+            android:text="@string/count_default"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvTotalAmount"
-            android:text="Amount: ₹0.00"
+            android:text="@string/amount_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -89,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="No expenses found"
+            android:text="@string/msg_no_expenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

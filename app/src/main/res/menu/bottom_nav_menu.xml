@@ -3,17 +3,17 @@
     
     <item 
         android:id="@+id/entryFragment" 
-        android:title="Entry" 
+        android:title="@string/menu_entry" 
         android:icon="@android:drawable/ic_input_add" />
         
     <item 
         android:id="@+id/listFragment" 
-        android:title="List" 
+        android:title="@string/menu_list" 
         android:icon="@android:drawable/ic_menu_agenda" />
         
     <item 
         android:id="@+id/reportFragment" 
-        android:title="Report" 
+        android:title="@string/menu_report" 
         android:icon="@android:drawable/ic_menu_today" />
         
 </menu>
