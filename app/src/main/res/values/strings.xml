@@ -3,8 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="all_expenses">Expenses List</string>
-    <string name="total_count_fmt">Count: %1$d</string>
-    <string name="total_amount_fmt">Amount: %1$s</string>
+    <string name="total_count_fmt">Total Count: %1$d</string>
+    <string name="total_amount_fmt">Total Amount: %1$s</string>
     <string name="today_total_fmt">Today Total: %1$s</string>
     
     <!-- Menu items -->
@@ -49,7 +49,7 @@
     <string name="today_expenses">Today</string>
     
     <!-- Default values -->
-    <string name="today_total_default">Today Total:</string>
+    <string name="today_total_default">Total Spent Today:</string>
     <string name="count_default">Total Count: 0</string>
     <string name="amount_default">Total Amount: ₹0.00</string>
     
