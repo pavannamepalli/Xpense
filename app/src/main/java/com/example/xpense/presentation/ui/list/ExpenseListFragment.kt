@@ -27,6 +27,8 @@ class ExpenseListFragment : Fragment() {
     private val vm: ExpenseListViewModel by viewModels()
     private val adapter = ExpensesAdapter()
 
+    private lateinit var categoryAdapter: ArrayAdapter<String>
+
     private lateinit var categories: Array<String>
 
     override fun onCreateView(
@@ -61,9 +63,8 @@ class ExpenseListFragment : Fragment() {
         vm.setDateRange(todayRange.first, todayRange.second)
         binding.tvDateFilter.text = getString(R.string.today_expenses)
         binding.btnClearDate.visibility = View.GONE
-        
-        // Reset category to "All"
-        binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
+
+        setCategoryToAll()
         vm.setCategoryOrAll(null)
         binding.inputCategoryFilter.clearFocus()
         binding.root.requestFocus()
@@ -80,7 +81,7 @@ class ExpenseListFragment : Fragment() {
     }
 
     private fun setupCategoryDropdown() {
-        val categoryAdapter = ArrayAdapter(
+        categoryAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_list_item_1,
             categories
@@ -93,8 +94,8 @@ class ExpenseListFragment : Fragment() {
             binding.inputCategoryFilter.showDropDown()
         }
 
-        // default selection - "All" category
-        binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
+        setCategoryToAll()
+
 
         // item selection handling
         binding.inputCategoryFilter.setOnItemClickListener { _, _, pos, _ ->
@@ -105,6 +106,12 @@ class ExpenseListFragment : Fragment() {
             binding.inputCategoryFilter.clearFocus()
             binding.root.requestFocus()
         }
+    }
+
+    private fun setCategoryToAll() {
+        binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
+        // 🔑 Reset filter so all items show again
+        categoryAdapter.filter.filter(null)
     }
 
     private fun setupDateFilter() {

@@ -38,6 +38,16 @@ class ExpenseEntryFragment : Fragment() {
     private var pickedDateMillis = System.currentTimeMillis()
     private var pickedImageUri: Uri? = null
 
+    private lateinit var categoryAdapter: ArrayAdapter<String>
+    private val categories by lazy {
+        listOf(
+            getString(R.string.category_staff),
+            getString(R.string.category_travel),
+            getString(R.string.category_food),
+            getString(R.string.category_utility)
+        )
+    }
+
     /* ---------------- Permission + Image Picking ---------------- */
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -147,14 +157,10 @@ class ExpenseEntryFragment : Fragment() {
     /* ---------------- Setup Methods ---------------- */
 
     private fun setupCategoryDropdown() {
-        val categories = listOf(
-            getString(R.string.category_staff),
-            getString(R.string.category_travel),
-            getString(R.string.category_food),
-            getString(R.string.category_utility)
-        )
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, categories)
-        binding.inputCategory.setAdapter(adapter)
+
+        categoryAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, categories)
+
+        binding.inputCategory.setAdapter(categoryAdapter)
         binding.inputCategory.threshold = 0
 
         binding.inputCategory.setOnClickListener {
@@ -165,7 +171,7 @@ class ExpenseEntryFragment : Fragment() {
             if (hasFocus) binding.inputCategory.showDropDown()
         }
 
-        binding.inputCategory.setText("", false)
+
     }
 
 
@@ -309,6 +315,7 @@ class ExpenseEntryFragment : Fragment() {
         clearFormKeepingCategoryAndDate()
         binding.inputCategory.setText("", false)
         binding.inputCategory.clearFocus()
+        categoryAdapter.filter.filter(null)
     }
 
     private fun cleanupPickedImage() {
