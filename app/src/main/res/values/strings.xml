@@ -2,7 +2,7 @@
     <string name="app_name">Xpense</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="all_expenses">All expenses</string>
+    <string name="all_expenses">All Expenses</string>
     <string name="total_count_fmt">Count: %1$d</string>
     <string name="total_amount_fmt">Amount: %1$s</string>
     <string name="today_total_fmt">Today Total: %1$s</string>
@@ -31,10 +31,10 @@
     
     <!-- Messages -->
     <string name="msg_saved">✓ Saved!</string>
-    <string name="msg_no_expenses">No expenses found</string>
+    <string name="msg_no_expenses">No Expenses found</string>
     <string name="msg_title_empty">Title cannot be empty</string>
     <string name="msg_amount_invalid">Amount must be greater than 0</string>
-    <string name="msg_duplicate_expense">Duplicate expense detected for same day</string>
+    <string name="msg_duplicate_expense">Duplicate Expense detected for same day</string>
     <string name="msg_save_success">Saved!</string>
     <string name="msg_insert_failed">Insert failed</string>
     <string name="msg_pdf_opening">Opening PDF report...</string>
@@ -48,7 +48,7 @@
     <string name="header_category_totals">Category-wise Totals</string>
     
     <!-- Default values -->
-    <string name="today_total_default">Today Total: ₹0.00</string>
+    <string name="today_total_default">Today Total:</string>
     <string name="count_default">Count: 0</string>
     <string name="amount_default">Amount: ₹0.00</string>
     

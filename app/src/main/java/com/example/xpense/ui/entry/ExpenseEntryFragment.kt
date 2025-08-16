@@ -49,7 +49,6 @@ class ExpenseEntryFragment : Fragment() {
     private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         try {
             if (uri != null) {
-                // Copy the image to internal storage to make it persistent
                 val internalUri = copyImageToInternalStorage(uri)
                 pickedImageUri = internalUri
                 binding.ivReceipt.load(internalUri)
@@ -111,7 +110,7 @@ class ExpenseEntryFragment : Fragment() {
         }
 
         viewmodel.todayTotal.observe(viewLifecycleOwner) { total ->
-            binding.tvTodayTotal.text = getString(R.string.today_total_fmt, Format.money(total))
+            binding.tvTodayAmount.text = Format.money(total)
         }
 
         binding.btnSubmit.setOnClickListener {
@@ -230,7 +229,6 @@ class ExpenseEntryFragment : Fragment() {
         binding.inputAmount.text = null
         binding.inputNotes.text = null
         
-        // Clean up the image file if it exists
         pickedImageUri?.let { uri ->
             try {
                 if (uri.scheme == "file") {
@@ -240,13 +238,11 @@ class ExpenseEntryFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                // Ignore cleanup errors
             }
         }
         
         pickedImageUri = null
         
-        // Reset category dropdown properly
         binding.inputCategory.setText("", false)
         binding.inputCategory.clearFocus()
         
@@ -257,7 +253,6 @@ class ExpenseEntryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         
-        // Clean up the image file if it exists and wasn't saved
         pickedImageUri?.let { uri ->
             try {
                 if (uri.scheme == "file") {
@@ -266,8 +261,7 @@ class ExpenseEntryFragment : Fragment() {
                         file.delete()
                     }
                 }
-            } catch (e: Exception) {
-                // Ignore cleanup errors
+            } catch (_e: Exception) {
             }
         }
         

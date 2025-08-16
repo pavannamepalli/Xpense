@@ -57,7 +57,6 @@ class ExpenseListFragment : Fragment() {
         binding.inputCategoryFilter.setOnItemClickListener { _, _, pos, _ ->
             val sel = categories[pos]
             vm.setCategoryOrAll(if (sel == getString(R.string.category_all)) null else sel)
-            // clear focus so the field returns to normal (no purple focus ring)
             binding.inputCategoryFilter.clearFocus()
             binding.root.requestFocus()
         }

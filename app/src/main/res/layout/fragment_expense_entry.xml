@@ -20,13 +20,32 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             app:cardElevation="2dp">
-            <TextView
-                android:id="@+id/tvTodayTotal"
-                android:padding="16dp"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:text="@string/today_total_default"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <!-- Left label -->
+                <TextView
+                    android:id="@+id/tvTodayLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/today_total_default"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                <!-- Right amount -->
+                <TextView
+                    android:id="@+id/tvTodayAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 0.00"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Form -->

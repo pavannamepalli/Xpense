@@ -36,7 +36,6 @@ class ExpenseListViewModel @Inject constructor(
                 base
             } else {
                 val wanted = cat!!.trim()
-                // case-insensitive match on String category
                 base.filter { it.category.equals(wanted, ignoreCase = true) }
             }
         }

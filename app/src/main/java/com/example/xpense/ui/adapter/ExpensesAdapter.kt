@@ -52,13 +52,11 @@ class ExpenseVH(private val vb: ItemExpenseBinding) : RecyclerView.ViewHolder(vb
                             vb.ivReceipt.visibility = View.VISIBLE
                         },
                         onError = { _, _ ->
-                            // If image fails to load, hide the ImageView
                             vb.ivReceipt.visibility = View.GONE
                         }
                     )
                 }
             } catch (e: Exception) {
-                // If we can't parse the URI or load the image, hide it
                 vb.ivReceipt.visibility = View.GONE
             }
         }

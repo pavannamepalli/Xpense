@@ -54,9 +54,9 @@ class ExpenseReportFragment : Fragment() {
 
             val pairs = ArrayList<Pair<String, Double>>(7)
 
-            // Oldest to newest: last 7 days including today
+            
             val cal = java.util.Calendar.getInstance()
-            // normalize to today (optional)
+            
             cal.set(java.util.Calendar.HOUR_OF_DAY, 0)
             cal.set(java.util.Calendar.MINUTE, 0)
             cal.set(java.util.Calendar.SECOND, 0)
@@ -65,29 +65,119 @@ class ExpenseReportFragment : Fragment() {
             for (i in 6 downTo 0) {
                 val d = cal.clone() as java.util.Calendar
                 d.add(java.util.Calendar.DAY_OF_YEAR, -i)
-                val key   = inFmt.format(d.time)        // "yyyy-MM-dd" to match DailyTotal.day
-                val label = outFmt.format(d.time)       // "16 Aug" etc.
-                val amount = totalsByDay[key] ?: 0.0    // fill missing days with 0
+                val key   = inFmt.format(d.time)        
+                val label = outFmt.format(d.time)       
+                val amount = totalsByDay[key] ?: 0.0    
                 pairs += label to amount
             }
             binding.barChart.setData(pairs)
             binding.barChart.setBarWidthFraction(0.30f)
             binding.barChart.setCompactYAxisLabels(true)
-            binding.tvDailyTotals.text = daily.joinToString("\n") { "${it.day}: ${Format.money(it.total)}" }
+            renderDailyTotals(daily)
+            
         }
 
         viewmodel.cats.observe(viewLifecycleOwner) { cats ->
-            binding.tvCategoryTotals.text = cats.joinToString("\n") { "${it.category}: ${Format.money(it.total)}" }
+            renderCategoryTotals(cats)
         }
 
         binding.btnExportCsv.setOnClickListener { exportPdfAndShare() }
     }
 
+    private fun renderDailyTotals(daily: List<DailyTotal>) {
+        val parent = binding.dailyTotalsContainer
+        parent.removeAllViews()
+
+        val inFmt  = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outFmt = SimpleDateFormat("dd MMM",    Locale.getDefault())
+
+        daily.forEach { d ->
+            val row = android.widget.LinearLayout(requireContext()).apply {
+                orientation = android.widget.LinearLayout.HORIZONTAL
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                setPadding(0, dp(2), 0, dp(2))
+            }
+
+
+            val tvDate = android.widget.TextView(requireContext()).apply {
+                
+                val label = runCatching { outFmt.format(inFmt.parse(d.day)!!) }.getOrElse { d.day }
+                text = label
+                setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14f)
+                layoutParams = android.widget.LinearLayout.LayoutParams(0,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, 1f) 
+            }
+
+            val tvAmount = android.widget.TextView(requireContext()).apply {
+                text = Format.money(d.total)
+                setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14f)
+                setTypeface(typeface, android.graphics.Typeface.BOLD)
+                textAlignment = View.TEXT_ALIGNMENT_VIEW_END
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            }
+
+            row.addView(tvDate)
+            row.addView(tvAmount)
+            parent.addView(row)
+        }
+    }
+
+    private fun renderCategoryTotals(cats: List<CategoryTotal>) {
+        val parent = binding.categoryTotalsContainer
+        parent.removeAllViews()
+
+        
+        val items = cats.sortedByDescending { it.total }
+
+        items.forEach { ct ->
+            val row = android.widget.LinearLayout(requireContext()).apply {
+                orientation = android.widget.LinearLayout.HORIZONTAL
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                setPadding(0, dp(4), 0, dp(4))
+                gravity = android.view.Gravity.CENTER_VERTICAL
+            }
+
+            val tvCat = android.widget.TextView(requireContext()).apply {
+                text = ct.category
+                setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14f)
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f
+                )
+            }
+
+            val tvAmt = android.widget.TextView(requireContext()).apply {
+                text = Format.money(ct.total)
+                setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 16f)
+                setTypeface(typeface, android.graphics.Typeface.BOLD)
+                textAlignment = View.TEXT_ALIGNMENT_VIEW_END
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            }
+
+            row.addView(tvCat)
+            row.addView(tvAmt)
+            parent.addView(row)
+        }
+    }
+
+    private fun dp(v: Int): Int = (v * resources.displayMetrics.density).toInt()
+
 
 
     private fun exportPdfAndShare() {
         val daily: List<DailyTotal> = viewmodel.daily.value.orEmpty()
-        val cats: List<CategoryTotal> = viewmodel.cats.value.orEmpty() // if you use pairs, see note below
+        val cats: List<CategoryTotal> = viewmodel.cats.value.orEmpty() 
 
         val money = NumberFormat.getCurrencyInstance(Locale("en", "IN")).apply {
             maximumFractionDigits = 2
@@ -96,7 +186,7 @@ class ExpenseReportFragment : Fragment() {
         val inFmt  = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outFmt = SimpleDateFormat("dd MMM",    Locale.getDefault())
 
-        // A4 @ 72dpi
+        
         val pageW = 595
         val pageH = 842
         val left   = 40f
@@ -124,10 +214,10 @@ class ExpenseReportFragment : Fragment() {
         }
         fun need(lines: Int) { if (y + lines * line > bottom) newPage() }
 
-        // Title
+        
         c.drawText(getString(R.string.pdf_title), x, y, titlePaint); y += line * 1.2f
 
-        // Daily totals
+        
         if (daily.isNotEmpty()) {
             need(1); c.drawText(getString(R.string.pdf_daily_totals), x, y, headerPaint); y += line
             daily.forEach { d ->
@@ -139,7 +229,7 @@ class ExpenseReportFragment : Fragment() {
             y += line * 0.5f
         }
 
-        // Category totals
+        
         if (cats.isNotEmpty()) {
             need(1); c.drawText(getString(R.string.pdf_category_totals), x, y, headerPaint); y += line
             cats.forEach { ct ->
@@ -161,7 +251,7 @@ class ExpenseReportFragment : Fragment() {
             file
         )
         
-        // Show dialog with options to open or share PDF
+        
         showPdfOptionsDialog(uri)
     }
     
@@ -175,8 +265,8 @@ class ExpenseReportFragment : Fragment() {
             .setTitle(getString(R.string.dialog_pdf_options_title))
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> openPdf(uri)  // Open PDF
-                    1 -> sharePdf(uri) // Share PDF
+                    0 -> openPdf(uri)  
+                    1 -> sharePdf(uri) 
                 }
             }
             .setNegativeButton(getString(R.string.btn_cancel)) { dialog, _ ->
