@@ -47,18 +47,15 @@ class ExpenseListFragment : Fragment() {
         setupRecycler()
         setupObservers()
         
-        // Initialize with today's expenses and "All" category
         resetToInitialState()
     }
 
     override fun onResume() {
         super.onResume()
-        // Reset to initial state: today's expenses with "All" category
         resetToInitialState()
     }
 
     private fun resetToInitialState() {
-        // Set today's date range
         val todayRange = DateUtils.todayRange()
         vm.setDateRange(todayRange.first, todayRange.second)
         binding.tvDateFilter.text = getString(R.string.today_expenses)
@@ -89,7 +86,6 @@ class ExpenseListFragment : Fragment() {
         binding.inputCategoryFilter.setAdapter(categoryAdapter)
         binding.inputCategoryFilter.threshold = 0
 
-        // show dropdown on click
         binding.inputCategoryFilter.setOnClickListener {
             binding.inputCategoryFilter.showDropDown()
         }
@@ -97,7 +93,6 @@ class ExpenseListFragment : Fragment() {
         setCategoryToAll()
 
 
-        // item selection handling
         binding.inputCategoryFilter.setOnItemClickListener { _, _, pos, _ ->
             val selected = categories[pos]
             vm.setCategoryOrAll(
@@ -110,12 +105,10 @@ class ExpenseListFragment : Fragment() {
 
     private fun setCategoryToAll() {
         binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
-        // 🔑 Reset filter so all items show again
         categoryAdapter.filter.filter(null)
     }
 
     private fun setupDateFilter() {
-        // Set default to today's date
         val todayRange = DateUtils.todayRange()
         vm.setDateRange(todayRange.first, todayRange.second)
         binding.tvDateFilter.text = getString(R.string.today_expenses)
@@ -133,7 +126,6 @@ class ExpenseListFragment : Fragment() {
                 binding.tvDateFilter.text = DateUtils.formatDate(millis)
                 binding.btnClearDate.visibility = View.VISIBLE
 
-                // Reset category to "All" when date is applied
                 binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
                 vm.setCategoryOrAll(null)
                 binding.inputCategoryFilter.clearFocus()
@@ -144,7 +136,6 @@ class ExpenseListFragment : Fragment() {
         }
 
         binding.btnClearDate.setOnClickListener {
-            // Clear date filter and return to today's expenses with "All" category
             resetToInitialState()
         }
     }

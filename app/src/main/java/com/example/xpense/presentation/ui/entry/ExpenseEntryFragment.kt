@@ -48,7 +48,6 @@ class ExpenseEntryFragment : Fragment() {
         )
     }
 
-    /* ---------------- Permission + Image Picking ---------------- */
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -130,7 +129,6 @@ class ExpenseEntryFragment : Fragment() {
         }
     }
 
-    /* ---------------- Lifecycle ---------------- */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -154,7 +152,6 @@ class ExpenseEntryFragment : Fragment() {
         _binding = null
     }
 
-    /* ---------------- Setup Methods ---------------- */
 
     private fun setupCategoryDropdown() {
 
@@ -215,7 +212,6 @@ class ExpenseEntryFragment : Fragment() {
         }
     }
 
-    /* ---------------- Animations ---------------- */
 
     private fun popSubmit() {
         binding.btnSubmit.animate()
@@ -274,7 +270,6 @@ class ExpenseEntryFragment : Fragment() {
             }.start()
     }
 
-    /* ---------------- Helpers ---------------- */
 
     private fun openDatePicker() {
         val picker = MaterialDatePicker.Builder.datePicker()
