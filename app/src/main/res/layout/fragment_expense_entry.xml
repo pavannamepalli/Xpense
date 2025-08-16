@@ -98,6 +98,7 @@
                         android:id="@+id/inputCategory"
                         android:inputType="none"
                         android:backgroundTint="@color/color_primary_light"
+                        app:dropDownBackgroundTint="?attr/dropdownBackground"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>

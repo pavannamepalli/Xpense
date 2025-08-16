@@ -3,6 +3,7 @@ package com.example.xpense.presentation.ui.entry
 import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,17 +38,25 @@ class ExpenseEntryFragment : Fragment() {
     private var pickedDateMillis = System.currentTimeMillis()
     private var pickedImageUri: Uri? = null
 
+    /* ---------------- Permission + Image Picking ---------------- */
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
             pickImage.launch(getString(R.string.mime_type_image))
         } else {
-            Toast.makeText(requireContext(), getString(R.string.msg_permission_required), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.msg_permission_required),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    private val pickImage = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri ->
         try {
             if (uri != null) {
                 val internalUri = copyImageToInternalStorage(uri)
@@ -59,7 +68,11 @@ class ExpenseEntryFragment : Fragment() {
                 binding.ivReceipt.visibility = View.GONE
             }
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), getString(R.string.msg_image_load_error, e.message), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.msg_image_load_error, e.message),
+                Toast.LENGTH_SHORT
+            ).show()
             binding.ivReceipt.visibility = View.GONE
         }
     }
@@ -68,15 +81,40 @@ class ExpenseEntryFragment : Fragment() {
         val inputStream = requireContext().contentResolver.openInputStream(uri)
         val fileName = "receipt_${System.currentTimeMillis()}.jpg"
         val outputFile = File(requireContext().filesDir, fileName)
-        
+
         inputStream?.use { input ->
             outputFile.outputStream().use { output ->
                 input.copyTo(output)
             }
         }
-        
         return Uri.fromFile(outputFile)
     }
+
+    private fun checkPermissionAndPickImage() {
+        val permission =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Manifest.permission.READ_MEDIA_IMAGES
+            } else {
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            }
+
+        when {
+            ContextCompat.checkSelfPermission(requireContext(), permission) ==
+                    PackageManager.PERMISSION_GRANTED -> {
+                pickImage.launch(getString(R.string.mime_type_image))
+            }
+            shouldShowRequestPermissionRationale(permission) -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.msg_permission_required),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else -> requestPermissionLauncher.launch(permission)
+        }
+    }
+
+    /* ---------------- Lifecycle ---------------- */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,6 +126,21 @@ class ExpenseEntryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupCategoryDropdown()
+        setupDatePicker()
+        setupObservers()
+        setupActions()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        cleanupPickedImage()
+        _binding = null
+    }
+
+    /* ---------------- Setup Methods ---------------- */
+
+    private fun setupCategoryDropdown() {
         val categories = listOf(
             getString(R.string.category_staff),
             getString(R.string.category_travel),
@@ -102,16 +155,33 @@ class ExpenseEntryFragment : Fragment() {
             binding.inputCategory.showDropDown()
         }
 
+        binding.inputCategory.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) binding.inputCategory.showDropDown()
+        }
+
+        binding.inputCategory.setText("", false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupCategoryDropdown()
+    }
+
+    private fun setupDatePicker() {
         binding.tilDate.setEndIconOnClickListener { openDatePicker() }
         binding.inputDate.setOnClickListener { openDatePicker() }
         binding.inputDate.setText(DateUtils.formatDate(pickedDateMillis))
+    }
 
-        binding.btnPickImage.setOnClickListener { 
-            checkPermissionAndPickImage()
-        }
-
+    private fun setupObservers() {
         viewmodel.todayTotal.observe(viewLifecycleOwner) { total ->
             binding.tvTodayAmount.text = Format.money(total)
+        }
+    }
+
+    private fun setupActions() {
+        binding.btnPickImage.setOnClickListener {
+            checkPermissionAndPickImage()
         }
 
         binding.btnSubmit.setOnClickListener {
@@ -137,25 +207,7 @@ class ExpenseEntryFragment : Fragment() {
         }
     }
 
-    private fun checkPermissionAndPickImage() {
-        val permission = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-            Manifest.permission.READ_MEDIA_IMAGES
-        } else {
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        }
-        
-        when {
-            ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_GRANTED -> {
-                pickImage.launch(getString(R.string.mime_type_image))
-            }
-            shouldShowRequestPermissionRationale(permission) -> {
-                Toast.makeText(requireContext(), getString(R.string.msg_permission_required), Toast.LENGTH_SHORT).show()
-            }
-            else -> {
-                requestPermissionLauncher.launch(permission)
-            }
-        }
-    }
+    /* ---------------- Animations ---------------- */
 
     private fun popSubmit() {
         binding.btnSubmit.animate()
@@ -165,7 +217,7 @@ class ExpenseEntryFragment : Fragment() {
                 binding.btnSubmit.animate()
                     .scaleX(1f).scaleY(1f)
                     .setDuration(120)
-                    .setInterpolator(android.view.animation.OvershootInterpolator())
+                    .setInterpolator(OvershootInterpolator())
                     .start()
             }.start()
     }
@@ -186,7 +238,7 @@ class ExpenseEntryFragment : Fragment() {
                 card.animate()
                     .scaleX(1f).scaleY(1f)
                     .setDuration(180)
-                    .setInterpolator(android.view.animation.OvershootInterpolator())
+                    .setInterpolator(OvershootInterpolator())
                     .withEndAction {
                         card.postDelayed({
                             overlay.animate()
@@ -199,17 +251,6 @@ class ExpenseEntryFragment : Fragment() {
                     .start()
             }
             .start()
-    }
-    private fun openDatePicker() {
-        val picker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText(getString(R.string.date_picker_title))
-            .setSelection(pickedDateMillis)
-            .build()
-        picker.addOnPositiveButtonClickListener { millis ->
-            pickedDateMillis = millis
-            binding.inputDate.setText(DateUtils.formatDate(millis))
-        }
-        picker.show(parentFragmentManager, getString(R.string.fragment_tag_date))
     }
 
     private fun animateSuccess() {
@@ -225,49 +266,53 @@ class ExpenseEntryFragment : Fragment() {
             }.start()
     }
 
+    /* ---------------- Helpers ---------------- */
+
+    private fun openDatePicker() {
+        val picker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText(getString(R.string.date_picker_title))
+            .setSelection(pickedDateMillis)
+            .build()
+
+        picker.addOnPositiveButtonClickListener { millis ->
+            pickedDateMillis = millis
+            binding.inputDate.setText(DateUtils.formatDate(millis))
+        }
+        picker.show(parentFragmentManager, getString(R.string.fragment_tag_date))
+    }
+
     private fun clearFormKeepingCategoryAndDate() {
         binding.inputTitle.text = null
         binding.inputAmount.text = null
         binding.inputNotes.text = null
-        
+
         pickedImageUri?.let { uri ->
             try {
                 if (uri.scheme == "file") {
                     val file = File(uri.path!!)
-                    if (file.exists()) {
-                        file.delete()
-                    }
+                    if (file.exists()) file.delete()
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
-        
+
         pickedImageUri = null
-        
         binding.inputCategory.setText("", false)
         binding.inputCategory.clearFocus()
-        
+
         binding.ivReceipt.setImageDrawable(null)
         binding.ivReceipt.visibility = View.GONE
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        
+    private fun cleanupPickedImage() {
         pickedImageUri?.let { uri ->
             try {
                 if (uri.scheme == "file") {
                     val file = File(uri.path!!)
-                    if (file.exists()) {
-                        file.delete()
-                    }
+                    if (file.exists()) file.delete()
                 }
-            } catch (_e: Exception) {
+            } catch (_: Exception) {
             }
         }
-        
-        _binding = null
     }
-
-
 }

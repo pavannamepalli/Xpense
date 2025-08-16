@@ -1,0 +1,3 @@
+<resources>
+    <attr name="dropdownBackground" format="color" />
+</resources>

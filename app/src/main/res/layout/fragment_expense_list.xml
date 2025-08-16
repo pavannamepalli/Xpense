@@ -22,18 +22,10 @@
             android:hint="@string/hint_category_filter">
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/inputCategoryFilter"
-                android:layout_width="match_parent"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:focusable="false"
-                android:clickable="true"
-                android:cursorVisible="false"
                 android:inputType="none"
-                android:importantForAutofill="no"
-                android:dropDownHeight="wrap_content"
-                android:dropDownWidth="match_parent"
-                android:ellipsize="end"
-                android:singleLine="true"
+                android:backgroundTint="@color/color_primary_light"
+                app:dropDownBackgroundTint="?attr/dropdownBackground"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 

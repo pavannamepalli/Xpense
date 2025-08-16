@@ -8,7 +8,10 @@
         <item name="colorOnPrimary">@color/md_theme_onBackground_dark</item>
         <item name="colorPrimaryContainer">@color/md_theme_surfaceVariant_dark</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_onSurface_dark</item>
-        
+
+        <item name="dropdownBackground">@color/color_primary_dark</item>
+
+
         <!-- Secondary Colors -->
         <item name="colorSecondary">@color/color_primary_variant_dark</item>
         <item name="colorOnSecondary">@color/md_theme_onBackground_dark</item>
