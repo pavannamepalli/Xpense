@@ -7,7 +7,9 @@ import android.widget.TextView
 import com.example.xpense.R
 
 class TotalBarView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, 
+    attrs: AttributeSet? = null, 
+    defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val label: TextView
@@ -19,8 +21,12 @@ class TotalBarView @JvmOverloads constructor(
         value = findViewById(R.id.totalValue)
     }
 
-    fun setLabel(text: String) { label.text = text }
+    fun setLabel(text: String) { 
+        label.text = text 
+    }
+    
     fun setAmount(amount: Double) {
         value.text = context.getString(R.string.total_amount_fmt, amount)
     }
+    
 }

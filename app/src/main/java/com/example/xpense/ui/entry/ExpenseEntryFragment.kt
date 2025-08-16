@@ -20,11 +20,10 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class ExpenseEntryFragment : Fragment() {
 
-    private var _binding: FragmentExpenseEntryBinding? =null
+    private var _binding: FragmentExpenseEntryBinding? = null
     private val binding get() = _binding!!
 
     private val viewmodel: ExpenseEntryViewModel by viewModels()
@@ -38,18 +37,16 @@ class ExpenseEntryFragment : Fragment() {
         binding.ivReceipt.visibility = if (uri == null) View.GONE else View.VISIBLE
     }
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentExpenseEntryBinding.inflate(inflater,container,false)
-       return binding.root
+        _binding = FragmentExpenseEntryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         val categories = listOf("Staff", "Travel", "Food", "Utility")
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, categories)
         binding.inputCategory.setAdapter(adapter)
@@ -60,23 +57,19 @@ class ExpenseEntryFragment : Fragment() {
             binding.inputCategory.showDropDown()
         }
 
-
         binding.tilDate.setEndIconOnClickListener { openDatePicker() }
         binding.inputDate.setOnClickListener { openDatePicker() }
         binding.inputDate.setText(DateUtils.formatDate(pickedDateMillis))
 
-
         binding.btnPickImage.setOnClickListener { pickImage.launch("image/*") }
 
-
-       viewmodel.todayTotal.observe(viewLifecycleOwner) { total ->
+        viewmodel.todayTotal.observe(viewLifecycleOwner) { total ->
             binding.tvTodayTotal.text = getString(R.string.today_total_fmt, Format.money(total))
         }
 
-
         binding.btnSubmit.setOnClickListener {
             popSubmit()
-           viewmodel.addExpense(
+            viewmodel.addExpense(
                 title = binding.inputTitle.text?.toString().orEmpty(),
                 amountStr = binding.inputAmount.text?.toString().orEmpty(),
                 category = binding.inputCategory.text?.toString().orEmpty(),

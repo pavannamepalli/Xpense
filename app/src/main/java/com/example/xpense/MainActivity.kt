@@ -21,22 +21,27 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    
     private lateinit var binding: ActivityMainBinding
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
         val prefs = getSharedPreferences("settings", MODE_PRIVATE)
         AppCompatDelegate.setDefaultNightMode(
             if (prefs.getBoolean("darkMode", false)) AppCompatDelegate.MODE_NIGHT_YES
             else AppCompatDelegate.MODE_NIGHT_NO
         )
+        
         ViewCompat.setOnApplyWindowInsetsListener(binding.appBar) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        
         setSupportActionBar(binding.toolbar)
         val navHost = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment

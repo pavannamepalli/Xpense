@@ -17,9 +17,9 @@ class ExpenseEntryViewModel @Inject constructor(
     private val repo: ExpenseRepository,
 ) : ViewModel() {
 
-
     val todayTotal: LiveData<Double?> = repo.getTotalBetween(
-        DateUtils.startOfDay(), DateUtils.endOfDay()
+        DateUtils.startOfDay(), 
+        DateUtils.endOfDay()
     )
 
     fun addExpense(
@@ -32,23 +32,26 @@ class ExpenseEntryViewModel @Inject constructor(
         onResult: (success: Boolean, message: String) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-
             val amount = amountStr.toDoubleOrNull() ?: 0.0
+            
             if (title.isBlank()) {
-                onResult(false, "Title cannot be empty"); return@launch
+                onResult(false, "Title cannot be empty")
+                return@launch
             }
+            
             if (amount <= 0.0) {
-                onResult(false, "Amount must be greater than 0"); return@launch
+                onResult(false, "Amount must be greater than 0")
+                return@launch
             }
-
 
             val start = DateUtils.startOfDay(timestamp)
             val end = DateUtils.endOfDay(timestamp)
             val exists = repo.findDuplicate(title.trim(), amount, start, end)
+            
             if (exists != null) {
-                onResult(false, "Duplicate expense detected for same day"); return@launch
+                onResult(false, "Duplicate expense detected for same day")
+                return@launch
             }
-
 
             val id = repo.insert(
                 ExpenseEntity(
@@ -60,7 +63,9 @@ class ExpenseEntryViewModel @Inject constructor(
                     imageUri = imageUri
                 )
             )
+            
             onResult(id > 0, if (id > 0) "Saved!" else "Insert failed")
         }
     }
+    
 }

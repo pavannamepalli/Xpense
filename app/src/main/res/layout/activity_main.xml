@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="?attr/colorOnPrimary"
-            app:navigationIconTint="?attr/colorOnPrimary"/>
+            app:navigationIconTint="?attr/colorOnPrimary" />
+            
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
@@ -36,5 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu" />
+        
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

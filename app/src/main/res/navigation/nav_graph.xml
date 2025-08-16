@@ -5,16 +5,14 @@
 
     <fragment
         android:id="@+id/entryFragment"
-        android:name="com.example.xpense.ui.entry.ExpenseEntryFragment"
-         />
+        android:name="com.example.xpense.ui.entry.ExpenseEntryFragment" />
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.xpense.ui.list.ExpenseListFragment"
-        />
+        android:name="com.example.xpense.ui.list.ExpenseListFragment" />
 
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.example.xpense.ui.report.ExpenseReportFragment"
-         />
+        android:name="com.example.xpense.ui.report.ExpenseReportFragment" />
+        
 </navigation>

@@ -16,16 +16,20 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides @Singleton
+    @Provides 
+    @Singleton
     fun provideDb(@ApplicationContext ctx: Context): AppDatabase =
         Room.databaseBuilder(ctx, AppDatabase::class.java, "expenses.db")
             .fallbackToDestructiveMigration()
             .build()
 
-    @Provides @Singleton
+    @Provides 
+    @Singleton
     fun provideExpenseDao(db: AppDatabase) = db.expenseDao()
 
-    @Provides @Singleton
+    @Provides 
+    @Singleton
     fun provideExpenseRepository(db: AppDatabase): ExpenseRepository =
         ExpenseRepositoryImpl(db.expenseDao())
+        
 }

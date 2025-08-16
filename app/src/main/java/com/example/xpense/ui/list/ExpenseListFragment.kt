@@ -5,23 +5,111 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xpense.R
 import com.example.xpense.databinding.FragmentExpenseEntryBinding
 import com.example.xpense.databinding.FragmentExpenseListBinding
+import com.example.xpense.ui.adapter.ExpenseAdapter
+import com.example.xpense.utils.DateUtils
+import com.example.xpense.utils.Format
+import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ExpenseListFragment : Fragment() {
 
-    private lateinit var binding: FragmentExpenseListBinding
+    private var _binding: FragmentExpenseListBinding? = null
+    private val binding get() = _binding!!
+
+    private val vm: ExpenseListViewModel by viewModels()
+    private val adapter = ExpenseAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater, 
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentExpenseListBinding.inflate(inflater, container, false)
+        _binding = FragmentExpenseListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val categories = arrayOf("All", "Staff", "Travel", "Food", "Utility")
+
+        binding.inputCategoryFilter.setAdapter(
+            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, categories)
+        )
+        binding.inputCategoryFilter.threshold = 0
+        binding.inputCategoryFilter.setOnClickListener {
+            binding.inputCategoryFilter.showDropDown()
+        }
+        binding.inputCategoryFilter.setText(categories[0], false)
+
+        binding.inputCategoryFilter.setOnItemClickListener { _, _, pos, _ ->
+            val sel = categories[pos]
+            vm.setCategoryOrAll(if (sel == "All") null else sel)
+            // clear focus so the field returns to normal (no purple focus ring)
+            binding.inputCategoryFilter.clearFocus()
+            binding.root.requestFocus()
+        }
+
+        binding.btnPickDate.setOnClickListener {
+            val picker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Filter by date")
+                .build()
+            picker.addOnPositiveButtonClickListener { millis ->
+                val start = DateUtils.startOfDay(millis)
+                val end = DateUtils.endOfDay(millis)
+                vm.setDateRange(start, end)
+                binding.tvDateFilter.text = DateUtils.formatDate(millis)
+                binding.btnClearDate.visibility = View.VISIBLE
+
+                binding.inputCategoryFilter.setText("All", false)
+                vm.setCategoryOrAll(null)
+                binding.inputCategoryFilter.clearFocus()
+                binding.root.requestFocus()
+            }
+            picker.show(parentFragmentManager, "filter_date")
+        }
+        
+        binding.btnClearDate.setOnClickListener {
+            vm.setDateRange(
+                DateUtils.lastNDaysRange(365).first,
+                DateUtils.lastNDaysRange(365).second
+            )
+            binding.tvDateFilter.text = getString(R.string.all_expenses)
+            binding.btnClearDate.visibility = View.GONE
+
+            binding.inputCategoryFilter.setText("All", false)
+            vm.setCategoryOrAll(null)
+        }
+
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycler.adapter = adapter
+
+        vm.expenses.observe(viewLifecycleOwner) { list ->
+            adapter.submit(list)
+            binding.groupEmpty.isVisible = list.isEmpty()
+            binding.recycler.isVisible = list.isNotEmpty()
+        }
+
+        vm.totalCount.observe(viewLifecycleOwner) { count ->
+            binding.tvTotalCount.text = getString(R.string.total_count_fmt, count)
+        }
+
+        vm.totalAmount.observe(viewLifecycleOwner) { amount ->
+            binding.tvTotalAmount.text = getString(R.string.total_amount_fmt, Format.money(amount))
+        }
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }
