@@ -44,14 +44,29 @@ class ExpenseListFragment : Fragment() {
         setupDateFilter()
         setupRecycler()
         setupObservers()
+        
+        // Initialize with today's expenses and "All" category
+        resetToInitialState()
     }
 
     override fun onResume() {
         super.onResume()
-        // 🔥 Fix: Reset adapter so dropdown always shows all categories
-        setupCategoryDropdown()
+        // Reset to initial state: today's expenses with "All" category
+        resetToInitialState()
+    }
+
+    private fun resetToInitialState() {
+        // Set today's date range
+        val todayRange = DateUtils.todayRange()
+        vm.setDateRange(todayRange.first, todayRange.second)
+        binding.tvDateFilter.text = getString(R.string.today_expenses)
+        binding.btnClearDate.visibility = View.GONE
+        
+        // Reset category to "All"
         binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
         vm.setCategoryOrAll(null)
+        binding.inputCategoryFilter.clearFocus()
+        binding.root.requestFocus()
     }
 
     private fun setupCategories() {
@@ -78,8 +93,8 @@ class ExpenseListFragment : Fragment() {
             binding.inputCategoryFilter.showDropDown()
         }
 
-        // default selection
-        binding.inputCategoryFilter.setText(categories[0], false)
+        // default selection - "All" category
+        binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
 
         // item selection handling
         binding.inputCategoryFilter.setOnItemClickListener { _, _, pos, _ ->
@@ -93,6 +108,12 @@ class ExpenseListFragment : Fragment() {
     }
 
     private fun setupDateFilter() {
+        // Set default to today's date
+        val todayRange = DateUtils.todayRange()
+        vm.setDateRange(todayRange.first, todayRange.second)
+        binding.tvDateFilter.text = getString(R.string.today_expenses)
+        binding.btnClearDate.visibility = View.GONE
+
         binding.btnPickDate.setOnClickListener {
             val picker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText(getString(R.string.date_picker_filter_title))
@@ -105,7 +126,7 @@ class ExpenseListFragment : Fragment() {
                 binding.tvDateFilter.text = DateUtils.formatDate(millis)
                 binding.btnClearDate.visibility = View.VISIBLE
 
-                // Reset category when date is applied
+                // Reset category to "All" when date is applied
                 binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
                 vm.setCategoryOrAll(null)
                 binding.inputCategoryFilter.clearFocus()
@@ -116,16 +137,8 @@ class ExpenseListFragment : Fragment() {
         }
 
         binding.btnClearDate.setOnClickListener {
-            val (start, end) = DateUtils.lastNDaysRange(365)
-            vm.setDateRange(start, end)
-            binding.tvDateFilter.text = getString(R.string.all_expenses)
-            binding.btnClearDate.visibility = View.GONE
-
-            // Reset category when clearing date
-            binding.inputCategoryFilter.setText(getString(R.string.category_all), false)
-            vm.setCategoryOrAll(null)
-            binding.inputCategoryFilter.clearFocus()
-            binding.root.requestFocus()
+            // Clear date filter and return to today's expenses with "All" category
+            resetToInitialState()
         }
     }
 

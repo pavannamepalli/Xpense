@@ -40,6 +40,11 @@ object DateUtils {
         return start to end
     }
 
+    fun todayRange(): Pair<Long, Long> {
+        val today = System.currentTimeMillis()
+        return startOfDay(today) to endOfDay(today)
+    }
+
     fun formatDayKey(key: String): String = key
     
     fun formatDate(millis: Long): String = dateTimeFormat.format(Date(millis))

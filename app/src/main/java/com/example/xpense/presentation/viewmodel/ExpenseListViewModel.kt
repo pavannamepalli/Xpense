@@ -17,7 +17,7 @@ class ExpenseListViewModel @Inject constructor(
     private val repo: ExpenseRepository
 ) : ViewModel() {
     
-    private val _dateRange = MutableLiveData(DateUtils.lastNDaysRange(365))
+    private val _dateRange = MutableLiveData(DateUtils.todayRange())
     private val _category = MutableLiveData<String?>(null)
 
     val source = _dateRange.switchMap { (start, end) ->
