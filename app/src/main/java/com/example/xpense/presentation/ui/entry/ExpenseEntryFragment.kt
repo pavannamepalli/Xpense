@@ -87,7 +87,7 @@ class ExpenseEntryFragment : Fragment() {
                 input.copyTo(output)
             }
         }
-        
+
         // Use FileProvider for more reliable access
         return androidx.core.content.FileProvider.getUriForFile(
             requireContext(),
@@ -168,10 +168,6 @@ class ExpenseEntryFragment : Fragment() {
         binding.inputCategory.setText("", false)
     }
 
-    override fun onResume() {
-        super.onResume()
-        setupCategoryDropdown()
-    }
 
     private fun setupDatePicker() {
         binding.tilDate.setEndIconOnClickListener { openDatePicker() }
@@ -206,7 +202,7 @@ class ExpenseEntryFragment : Fragment() {
                         showSuccessOverlay()
                         binding.inputCategory.clearFocus()
                         binding.container.requestFocus()
-                        clearFormKeepingCategoryAndDate()
+                        clearFormAll()
                     }
                 }
             }
@@ -303,11 +299,16 @@ class ExpenseEntryFragment : Fragment() {
         }
 
         pickedImageUri = null
-        binding.inputCategory.setText("", false)
-        binding.inputCategory.clearFocus()
+
 
         binding.ivReceipt.setImageDrawable(null)
         binding.ivReceipt.visibility = View.GONE
+    }
+
+    private fun clearFormAll() {
+        clearFormKeepingCategoryAndDate()
+        binding.inputCategory.setText("", false)
+        binding.inputCategory.clearFocus()
     }
 
     private fun cleanupPickedImage() {
