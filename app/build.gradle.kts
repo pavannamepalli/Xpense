@@ -30,7 +30,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true // We use ViewBinding (not DataBinding)
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

@@ -17,7 +17,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.xpense.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHost.navController
 
         val appBarConfig = AppBarConfiguration(
-            setOf(R.id.entryFragment, R.id.listFragment, R.id.reportFragment) // top-level
+            setOf(R.id.entryFragment, R.id.listFragment, R.id.reportFragment)
         )
         setupActionBarWithNavController(navController, appBarConfig)
         binding.bottomNav.setupWithNavController(navController)
@@ -86,7 +88,6 @@ class MainActivity : AppCompatActivity() {
             if (isDark) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
         )
 
-        // Refresh menu immediately to update icon
         invalidateOptionsMenu()
     }
 
