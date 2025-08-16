@@ -87,7 +87,13 @@ class ExpenseEntryFragment : Fragment() {
                 input.copyTo(output)
             }
         }
-        return Uri.fromFile(outputFile)
+        
+        // Use FileProvider for more reliable access
+        return androidx.core.content.FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            outputFile
+        )
     }
 
     private fun checkPermissionAndPickImage() {
