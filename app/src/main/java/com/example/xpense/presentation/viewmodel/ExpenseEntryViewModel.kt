@@ -1,16 +1,15 @@
-package com.example.xpense.ui.entry
+package com.example.xpense.presentation.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.xpense.R
-import com.example.xpense.data.local.ExpenseEntity
-import com.example.xpense.data.repository.ExpenseRepository
-import com.example.xpense.utils.DateUtils
+import com.example.xpense.data.local.entity.ExpenseEntity
+import com.example.xpense.domain.repository.ExpenseRepository
+import com.example.xpense.core.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +21,7 @@ class ExpenseEntryViewModel @Inject constructor(
 ) : ViewModel() {
 
     val todayTotal: LiveData<Double?> = repo.getTotalBetween(
-        DateUtils.startOfDay(), 
+        DateUtils.startOfDay(),
         DateUtils.endOfDay()
     )
 

@@ -1,9 +1,9 @@
-package com.example.xpense.di
+package com.example.xpense.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.xpense.data.local.AppDatabase
-import com.example.xpense.data.repository.ExpenseRepository
+import com.example.xpense.data.local.database.AppDatabase
+import com.example.xpense.domain.repository.ExpenseRepository
 import com.example.xpense.data.repository.ExpenseRepositoryImpl
 import dagger.Module
 import dagger.Provides

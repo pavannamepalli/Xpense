@@ -1,9 +1,9 @@
-package com.example.xpense.data.repository
+package com.example.xpense.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.example.xpense.data.local.CategoryTotal
-import com.example.xpense.data.local.DailyTotal
-import com.example.xpense.data.local.ExpenseEntity
+import com.example.xpense.data.model.CategoryTotal
+import com.example.xpense.data.model.DailyTotal
+import com.example.xpense.data.local.entity.ExpenseEntity
 
 interface ExpenseRepository {
     

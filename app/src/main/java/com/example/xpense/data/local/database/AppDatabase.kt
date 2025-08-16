@@ -1,11 +1,12 @@
-package com.example.xpense.data.local
+package com.example.xpense.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import com.example.xpense.data.local.entity.ExpenseEntity
+import com.example.xpense.data.local.dao.ExpenseDao
 
 @Database(
-    entities = [ExpenseEntity::class], 
+    entities = [ExpenseEntity::class],
     version = 1, 
     exportSchema = false
 )

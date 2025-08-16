@@ -1,4 +1,4 @@
-package com.example.xpense.utils
+package com.example.xpense.presentation.ui.components
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,7 +10,6 @@ import android.view.View
 import com.example.xpense.R
 import com.google.android.material.color.MaterialColors
 import kotlin.math.max
-import androidx.core.graphics.toColorInt
 import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale

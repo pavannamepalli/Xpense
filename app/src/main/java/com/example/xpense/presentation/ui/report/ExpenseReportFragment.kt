@@ -1,4 +1,4 @@
-package com.example.xpense.ui.report
+package com.example.xpense.presentation.ui.report
 
 import android.content.Intent
 import android.graphics.Paint
@@ -13,11 +13,11 @@ import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.example.xpense.R
-import com.example.xpense.data.local.CategoryTotal
-import com.example.xpense.data.local.DailyTotal
-import com.example.xpense.databinding.FragmentExpenseListBinding
+import com.example.xpense.data.model.CategoryTotal
+import com.example.xpense.data.model.DailyTotal
 import com.example.xpense.databinding.FragmentExpenseReportBinding
-import com.example.xpense.utils.Format
+import com.example.xpense.core.utils.Format
+import com.example.xpense.presentation.viewmodel.ExpenseReportViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -177,7 +177,7 @@ class ExpenseReportFragment : Fragment() {
 
     private fun exportPdfAndShare() {
         val daily: List<DailyTotal> = viewmodel.daily.value.orEmpty()
-        val cats: List<CategoryTotal> = viewmodel.cats.value.orEmpty() 
+        val cats: List<CategoryTotal> = viewmodel.cats.value.orEmpty()
 
         val money = NumberFormat.getCurrencyInstance(Locale("en", "IN")).apply {
             maximumFractionDigits = 2

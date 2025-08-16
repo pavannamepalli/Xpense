@@ -1,4 +1,4 @@
-package com.example.xpense.utils
+package com.example.xpense.core.utils
 
 import java.util.Calendar
 import java.text.SimpleDateFormat

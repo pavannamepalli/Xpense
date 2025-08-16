@@ -1,4 +1,4 @@
-package com.example.xpense.ui.list
+package com.example.xpense.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
-import com.example.xpense.data.local.ExpenseEntity
-import com.example.xpense.data.repository.ExpenseRepository
-import com.example.xpense.utils.DateUtils
+import com.example.xpense.data.local.entity.ExpenseEntity
+import com.example.xpense.domain.repository.ExpenseRepository
+import com.example.xpense.core.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

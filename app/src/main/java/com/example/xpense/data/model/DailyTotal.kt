@@ -1,4 +1,4 @@
-package com.example.xpense.data.local
+package com.example.xpense.data.model
 
 data class DailyTotal(
     val day: String,

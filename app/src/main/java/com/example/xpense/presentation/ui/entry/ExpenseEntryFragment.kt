@@ -1,4 +1,4 @@
-package com.example.xpense.ui.entry
+package com.example.xpense.presentation.ui.entry
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -18,8 +18,9 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.xpense.R
 import com.example.xpense.databinding.FragmentExpenseEntryBinding
-import com.example.xpense.utils.DateUtils
-import com.example.xpense.utils.Format
+import com.example.xpense.core.utils.DateUtils
+import com.example.xpense.core.utils.Format
+import com.example.xpense.presentation.viewmodel.ExpenseEntryViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

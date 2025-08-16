@@ -1,7 +1,8 @@
 package com.example.xpense.data.repository
 
-import com.example.xpense.data.local.ExpenseDao
-import com.example.xpense.data.local.ExpenseEntity
+import com.example.xpense.data.local.dao.ExpenseDao
+import com.example.xpense.data.local.entity.ExpenseEntity
+import com.example.xpense.domain.repository.ExpenseRepository
 
 class ExpenseRepositoryImpl(private val dao: ExpenseDao) : ExpenseRepository {
 

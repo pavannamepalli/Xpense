@@ -1,4 +1,4 @@
-package com.example.xpense.ui.list
+package com.example.xpense.presentation.ui.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,11 +10,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xpense.R
-import com.example.xpense.databinding.FragmentExpenseEntryBinding
 import com.example.xpense.databinding.FragmentExpenseListBinding
-import com.example.xpense.ui.adapter.ExpenseAdapter
-import com.example.xpense.utils.DateUtils
-import com.example.xpense.utils.Format
+import com.example.xpense.core.utils.DateUtils
+import com.example.xpense.core.utils.Format
+import com.example.xpense.presentation.ui.adapter.ExpensesAdapter
+import com.example.xpense.presentation.viewmodel.ExpenseListViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +25,7 @@ class ExpenseListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val vm: ExpenseListViewModel by viewModels()
-    private val adapter = ExpenseAdapter()
+    private val adapter = ExpensesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, 
@@ -98,7 +98,7 @@ class ExpenseListFragment : Fragment() {
         binding.recycler.adapter = adapter
 
         vm.expenses.observe(viewLifecycleOwner) { list ->
-            adapter.submit(list)
+            adapter.submitList(list)
             binding.groupEmpty.isVisible = list.isEmpty()
             binding.recycler.isVisible = list.isNotEmpty()
         }

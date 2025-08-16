@@ -1,4 +1,4 @@
-package com.example.xpense.utils
+package com.example.xpense.core.utils
 
 import java.text.NumberFormat
 import java.util.Currency

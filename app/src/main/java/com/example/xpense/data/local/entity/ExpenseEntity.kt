@@ -1,4 +1,4 @@
-package com.example.xpense.data.local
+package com.example.xpense.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
